@@ -5,14 +5,13 @@ const MODAL_UPLOAD = document.querySelector('.img-upload__overlay');
 const OPEN_BUTTON = document.querySelector('.img-upload__control');
 const CLOSE_BUTTON = document.querySelector('#upload-cancel');
 const SCALE = document.querySelector('.scale');
-const TAGS_AREA = document.querySelector('.text__hashtags');
-const COMMENTS_AREA = document.querySelector('.text__description');
 const FORM = document.querySelector('.img-upload__form');
 const EFFECT_FILTERS = document.querySelector('.effects__list');
 
 const openModal = () => {
   MODAL_UPLOAD.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  resetForm();
 
   document.addEventListener('keydown', onModalEscKeydown);
   SCALE.addEventListener('click', scaleControl);
@@ -32,6 +31,9 @@ const closeModal = () => {
 };
 
 function onModalEscKeydown(evt) {
+  const TAGS_AREA = document.querySelector('.text__hashtags');
+  const COMMENTS_AREA = document.querySelector('.text__description');
+
   if (isEscapeKey(evt)) {
     evt.preventDefault();
 

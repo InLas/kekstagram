@@ -1,35 +1,26 @@
-const getInteger = (min, max) => {
-  const MIN = Math.ceil(min);
-  const MAX = Math.floor(max);
-
-  if (min < 0 || min >= max) {
-    throw new Error(`Значение min: ${min} превышает значение max: ${max}, или указано отрицательное число`);
-  }
-
-  return Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
-};
-
-const getRandomIntFromRangeGenerator = (min, max) => {
-  const PREVIOUS_VALUES = [];
-
-  return () => {
-    let currentValue = getInteger(min, max);
-
-    if (PREVIOUS_VALUES.length >= (max - min + 1)) {
-      throw new Error(`Перебраны все числа диапазона от ${min} до ${max}`);
-    }
-
-    while (PREVIOUS_VALUES.includes(currentValue)) {
-      currentValue = getInteger(min, max);
-    }
-
-    PREVIOUS_VALUES.push(currentValue);
-    return currentValue;
-  };
-};
-
-const getRandomElement = (element) => element[getInteger(0, element.length - 1)];
+const ALLERT_SHOWTIME = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getInteger, getRandomElement, getRandomIntFromRangeGenerator, isEscapeKey };
+const downloadAllertMessage = (message) => {
+  const ALLERT_CONTAINER = document.createElement('div');
+  ALLERT_CONTAINER.style.zIndex = 100;
+  ALLERT_CONTAINER.style.position = 'absolute';
+  ALLERT_CONTAINER.style.top = 0;
+  ALLERT_CONTAINER.style.left = 0;
+  ALLERT_CONTAINER.style.right = 0;
+  ALLERT_CONTAINER.style.padding = '15px 15px';
+  ALLERT_CONTAINER.style.textAlign = 'center';
+  ALLERT_CONTAINER.style.fontWeight = 'bold';
+  ALLERT_CONTAINER.style.backgroundColor = 'red';
+
+  ALLERT_CONTAINER.textContent = message;
+
+  document.body.append(ALLERT_CONTAINER);
+
+  setTimeout(() => {
+    ALLERT_CONTAINER.remove();
+  }, ALLERT_SHOWTIME);
+};
+
+export { isEscapeKey, downloadAllertMessage };

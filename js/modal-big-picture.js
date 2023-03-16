@@ -21,13 +21,6 @@ const closeModal = () => {
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-function onModalEscKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModal();
-  }
-}
-
 USER_PICTURES.addEventListener('click', (evt) => {
   if (evt.target.classList[0] === 'picture__img') {
     evt.preventDefault();
@@ -39,3 +32,10 @@ USER_PICTURES.addEventListener('click', (evt) => {
 CLOSE.addEventListener('click', () => {
   closeModal();
 });
+
+function onModalEscKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeModal();
+  }
+}
