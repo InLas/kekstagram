@@ -215,13 +215,13 @@ const createMessageSection = (isValid) => {
 
 const blockSubmitButton = () => {
   SUBMIT_BUTTON.disabled = true;
-  SUBMIT_BUTTON.textContent = 'Загрузка...'
-}
+  SUBMIT_BUTTON.textContent = 'Загрузка...';
+};
 
 const unblockSubmitButton = () => {
   SUBMIT_BUTTON.disabled = false;
-  SUBMIT_BUTTON.textContent = 'Опубликовать.'
-}
+  SUBMIT_BUTTON.textContent = 'Опубликовать.';
+};
 
 const PRISTINE = new Pristine(FORM, {
   classTo: 'text',
@@ -249,7 +249,7 @@ const setFormSubmit = (cloasing) => {
           unblockSubmitButton();
         },
         new FormData(evt.target)
-      )
+      );
     } else {
       cloasing();
       createMessageSection(IS_VALID);
