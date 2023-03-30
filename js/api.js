@@ -1,4 +1,4 @@
-import { downloadAllertMessage } from './util.js'
+import { AllertMessage } from './util.js';
 
 const getData = (onSucces) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
@@ -7,10 +7,28 @@ const getData = (onSucces) => {
       onSucces(userPictures);
     })
     .catch(() => {
-      downloadAllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу')
-    })
+      AllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
+    });
 };
 
-const sentData = () => { };
+const sentData = (onSucces, onFail, body) => {
+  fetch(
+    'https://25.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body
+    }
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSucces();
+      } else {
+        onFail();
+      }
+    })
+    .catch(() => {
+      onFail();
+    });
+};
 
 export { getData, sentData };

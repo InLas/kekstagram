@@ -1,11 +1,10 @@
 import { isEscapeKey } from './util.js';
-import { scaleControl, chooseFilter, validation, resetForm } from './form-upload.js';
+import { scaleControl, chooseFilter, resetForm } from './form-upload.js';
 
 const MODAL_UPLOAD = document.querySelector('.img-upload__overlay');
 const OPEN_BUTTON = document.querySelector('.img-upload__control');
-const CLOSE_BUTTON = document.querySelector('#upload-cancel');
+const CLOSE_BUTTON = document.querySelector('.img-upload__cancel');
 const SCALE = document.querySelector('.scale');
-const FORM = document.querySelector('.img-upload__form');
 const EFFECT_FILTERS = document.querySelector('.effects__list');
 
 const openModal = () => {
@@ -16,7 +15,6 @@ const openModal = () => {
   document.addEventListener('keydown', onModalEscKeydown);
   SCALE.addEventListener('click', scaleControl);
   EFFECT_FILTERS.addEventListener('click', chooseFilter);
-  FORM.addEventListener('submit', validation);
 };
 
 const closeModal = () => {
@@ -26,8 +24,7 @@ const closeModal = () => {
 
   document.removeEventListener('keydown', onModalEscKeydown);
   SCALE.removeEventListener('click', scaleControl);
-  EFFECT_FILTERS.addEventListener('click', chooseFilter);
-  FORM.removeEventListener('submit', validation);
+  EFFECT_FILTERS.removeEventListener('click', chooseFilter);
 };
 
 function onModalEscKeydown(evt) {
@@ -43,9 +40,7 @@ function onModalEscKeydown(evt) {
   }
 }
 
-OPEN_BUTTON.addEventListener('click', (evt) => {
-  evt.preventDefault();
-
+OPEN_BUTTON.addEventListener('click', () => {
   openModal();
 });
 

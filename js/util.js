@@ -2,7 +2,7 @@ const ALLERT_SHOWTIME = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const downloadAllertMessage = (message) => {
+const AllertMessage = (message) => {
   const ALLERT_CONTAINER = document.createElement('div');
   ALLERT_CONTAINER.style.zIndex = 100;
   ALLERT_CONTAINER.style.position = 'absolute';
@@ -23,4 +23,4 @@ const downloadAllertMessage = (message) => {
   }, ALLERT_SHOWTIME);
 };
 
-export { isEscapeKey, downloadAllertMessage };
+export { isEscapeKey, AllertMessage };

@@ -1,11 +1,13 @@
-import { closeModal } from './modal-form-upload.js';
-import { isEscapeKey } from './util.js';
+import { AllertMessage, isEscapeKey } from './util.js';
+import { sentData } from './api.js';
 
 const SCALE_CONTROL_VALUE = document.querySelector('.scale__control--value');
 const PREVIEW_IMAGE = document.querySelector('.img-upload__preview').querySelector('img');
 const FORM = document.querySelector('.img-upload__form');
 const EFFECT_SLIDER = document.querySelector('.effect-level__slider');
 const EFFECT_LEVEL = document.querySelector('.effect-level__value');
+const SUBMIT_BUTTON = document.querySelector('.img-upload__submit');
+
 let currentFilter = '';
 
 const scaleControl = (evt) => {
@@ -145,8 +147,8 @@ const getTagsErrorMessage = (value) => {
     return 'Теги должны быть уникальны';
   }
 
-  for (const tag of TAGS) {
-    const ERROR = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(tag);
+  for (const TAG of TAGS) {
+    const ERROR = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(TAG);
     if (!ERROR) {
       return 'Тег начинается с решетки и имеет максимальную длинну 20 символов (включая решетку), строка после решётки должна состоять из букв и чисел, теги указываются через пробел';
     }
@@ -159,7 +161,6 @@ const tagsCheck = (value) => {
     const UNIQUE_TAGS = TAGS.map((tag) => tag.toLowerCase());
 
     if (TAGS.length > 5) {
-      getTagsErrorMessage('Не больше 5 тегов');
       return false;
     }
 
@@ -167,8 +168,8 @@ const tagsCheck = (value) => {
       return false;
     }
 
-    for (const tag of TAGS) {
-      const ERROR = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(tag);
+    for (const TAG of TAGS) {
+      const ERROR = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(TAG);
       if (!ERROR) {
         return false;
       }
@@ -179,14 +180,19 @@ const tagsCheck = (value) => {
 };
 
 const removeMessageSection = () => {
+  const ERROR = document.querySelector('.error');
+  const SUCCESS = document.querySelector('.success');
+  const OPEN_BUTTON = document.querySelector('.img-upload__control');
+
   document.removeEventListener('click', removeMessageSection);
   document.removeEventListener('keydown', onModalEscKeydown);
 
-  if (document.querySelector('.error')) {
-    return document.querySelector('.error').remove();
+  if (ERROR) {
+    ERROR.remove();
+    return OPEN_BUTTON.click();
   }
 
-  document.querySelector('.success').remove();
+  SUCCESS.remove();
 };
 
 const createMessageSection = (isValid) => {
@@ -197,17 +203,25 @@ const createMessageSection = (isValid) => {
     document.body.append(ERROR_TEMPLATE);
     const ERROR_BUTTON = document.querySelector('.error__button');
     ERROR_BUTTON.addEventListener('click', removeMessageSection);
-    document.addEventListener('click', removeMessageSection);
-    document.addEventListener('keydown', onModalEscKeydown);
-    return;
+  } else {
+    document.body.append(SUCCESS_TEMPLATE);
+    const SUCCESS_BUTTON = document.querySelector('.success__button');
+    SUCCESS_BUTTON.addEventListener('click', removeMessageSection);
   }
 
-  document.body.append(SUCCESS_TEMPLATE);
-  const SUCCESS_BUTTON = document.querySelector('.success__button');
-  SUCCESS_BUTTON.addEventListener('click', removeMessageSection);
   document.addEventListener('click', removeMessageSection);
   document.addEventListener('keydown', onModalEscKeydown);
 };
+
+const blockSubmitButton = () => {
+  SUBMIT_BUTTON.disabled = true;
+  SUBMIT_BUTTON.textContent = 'Загрузка...'
+}
+
+const unblockSubmitButton = () => {
+  SUBMIT_BUTTON.disabled = false;
+  SUBMIT_BUTTON.textContent = 'Опубликовать.'
+}
 
 const PRISTINE = new Pristine(FORM, {
   classTo: 'text',
@@ -217,13 +231,30 @@ const PRISTINE = new Pristine(FORM, {
 
 PRISTINE.addValidator(FORM.querySelector('.text__hashtags'), tagsCheck, getTagsErrorMessage);
 
-const validation = (evt) => {
-  evt.preventDefault();
+const setFormSubmit = (cloasing) => {
+  FORM.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  const IS_VALID = PRISTINE.validate();
-
-  closeModal();
-  createMessageSection(IS_VALID);
+    const IS_VALID = PRISTINE.validate();
+    if (IS_VALID) {
+      blockSubmitButton();
+      sentData(
+        () => {
+          cloasing();
+          createMessageSection(IS_VALID);
+          unblockSubmitButton();
+        },
+        () => {
+          AllertMessage('Не удалось отправить форму, попробуйте еще раз');
+          unblockSubmitButton();
+        },
+        new FormData(evt.target)
+      )
+    } else {
+      cloasing();
+      createMessageSection(IS_VALID);
+    }
+  });
 };
 
 const resetForm = () => {
@@ -247,4 +278,4 @@ function onModalEscKeydown(evt) {
   }
 }
 
-export { scaleControl, chooseFilter, validation, resetForm };
+export { scaleControl, chooseFilter, setFormSubmit, resetForm, createMessageSection };
