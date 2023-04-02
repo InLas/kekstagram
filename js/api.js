@@ -6,9 +6,9 @@ const getData = (onSucces) => {
     .then((userPictures) => {
       onSucces(userPictures);
     })
-    .catch(() => {
-      AllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
-    });
+  // .catch(() => {
+  //   AllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
+  // });
 };
 
 const sentData = (onSucces, onFail, body) => {

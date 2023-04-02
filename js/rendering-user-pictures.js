@@ -1,11 +1,14 @@
-const USER_PICTURES = [];
-
 const renderUserPictures = (userPictures) => {
   const PICTURES_CONTAINER = document.querySelector('.pictures');
   const PICTURES_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
   const PICTURES_FRAGMENT = document.createDocumentFragment();
-  Object.assign(USER_PICTURES, userPictures);
 
+
+  // PICTURES_CONTAINER.removeChild('.picture');
+
+  // console.log(choise);
+
+  // if (choise === def) {
   userPictures.forEach(({ id, url, likes, comments }) => {
     const POST_USER = PICTURES_TEMPLATE.cloneNode(true);
     POST_USER.querySelector('.picture__img').src = url;
@@ -16,6 +19,8 @@ const renderUserPictures = (userPictures) => {
   });
 
   PICTURES_CONTAINER.append(PICTURES_FRAGMENT);
+
+  // }
 };
 
-export { renderUserPictures, USER_PICTURES };
+export { renderUserPictures };

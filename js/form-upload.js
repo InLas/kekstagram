@@ -112,7 +112,7 @@ const chooseFilter = (evt) => {
       EFFECT_SLIDER.noUiSlider.set(3);
     }
 
-    PREVIEW_IMAGE.className = '';
+    PREVIEW_IMAGE.classList = '';
     PREVIEW_IMAGE.classList.add(`effects__preview--${CURRENT_FILTER}`);
   }
 };
@@ -231,7 +231,7 @@ const PRISTINE = new Pristine(FORM, {
 
 PRISTINE.addValidator(FORM.querySelector('.text__hashtags'), tagsCheck, getTagsErrorMessage);
 
-const setFormSubmit = (cloasing) => {
+const setFormSubmit = (cb) => {
   FORM.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -240,7 +240,7 @@ const setFormSubmit = (cloasing) => {
       blockSubmitButton();
       sentData(
         () => {
-          cloasing();
+          cb();
           createMessageSection(IS_VALID);
           unblockSubmitButton();
         },
@@ -251,23 +251,22 @@ const setFormSubmit = (cloasing) => {
         new FormData(evt.target)
       );
     } else {
-      cloasing();
+      cb();
       createMessageSection(IS_VALID);
     }
   });
 };
 
 const resetForm = () => {
+  FORM.reset();
+  PREVIEW_IMAGE.src = 'img/upload-default-image.jpg';
+  PREVIEW_IMAGE.removeAttribute('class');
+  PREVIEW_IMAGE.removeAttribute('style');
   PREVIEW_IMAGE.classList.add('effects__preview--none');
   EFFECT_SLIDER.setAttribute('disabled', true);
   EFFECT_SLIDER.classList.add('hidden');
   SCALE_CONTROL_VALUE.setAttribute('value', '100%');
-  PREVIEW_IMAGE.style.transform = 'scale(1)';
-  PREVIEW_IMAGE.className = '';
-  PREVIEW_IMAGE.style = null;
   document.querySelector('#effect-none').checked = true;
-  FORM.querySelector('.text__hashtags').value = '';
-  FORM.querySelector('.text__description').value = '';
 };
 
 function onModalEscKeydown(evt) {

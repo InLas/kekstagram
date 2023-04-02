@@ -1,10 +1,7 @@
-import { USER_PICTURES } from './rendering-user-pictures.js';
-
-const SECTION = document.querySelector('.big-picture');
-const LOAD_MORE_BUTTON = SECTION.querySelector('.comments-loader');
-const COMMENTS = SECTION.querySelector('.social__comments');
-const COMMENTS_COUNTER = SECTION.querySelector('.social__comment-count');
-const COMMENT_TEMPLATE = COMMENTS.querySelector('.social__comment').cloneNode(true);
+const LOAD_MORE_BUTTON = document.querySelector('.comments-loader');
+const COMMENTS = document.querySelector('.social__comments');
+const COMMENTS_COUNTER = document.querySelector('.social__comment-count');
+const COMMENT_TEMPLATE = document.querySelector('.social__comment').cloneNode(true);
 const COMMENTS_FRAGMENT = document.createDocumentFragment();
 const CURRENT_COMMENTS = [];
 let commentsLength;
@@ -36,12 +33,16 @@ const fillingUserComments = () => {
   }
 };
 
-const fillingBigPicture = (CurrentPicture) => {
-  USER_PICTURES.forEach((userPicture) => {
-    if (userPicture.id === +CurrentPicture.id) {
-      SECTION.querySelector('.big-picture__img').querySelector('img').src = userPicture.url;
-      SECTION.querySelector('.likes-count').textContent = userPicture.likes;
-      SECTION.querySelector('.social__caption').textContent = userPicture.description;
+const fillingBigPicture = (currentPicture, userPictures) => {
+  const PICTURE = document.querySelector('.big-picture__img').querySelector('img');
+  const LIKES_COUNT = document.querySelector('.likes-count');
+  const CAPTION = document.querySelector('.social__caption');
+
+  userPictures.forEach((userPicture) => {
+    if (userPicture.id === +currentPicture.id) {
+      PICTURE.src = userPicture.url;
+      LIKES_COUNT.textContent = userPicture.likes;
+      CAPTION.textContent = userPicture.description;
 
       if (userPicture.comments.length > 0) {
         Object.assign(CURRENT_COMMENTS, userPicture.comments);

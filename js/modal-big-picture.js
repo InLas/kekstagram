@@ -5,9 +5,7 @@ const BIG_PICTURE = document.querySelector('.big-picture');
 const USER_PICTURES = document.querySelector('.pictures');
 const CLOSE = document.querySelector('.big-picture__cancel');
 
-const openModal = (picture) => {
-  fillingBigPicture(picture);
-
+const openModal = () => {
   BIG_PICTURE.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
@@ -21,13 +19,16 @@ const closeModal = () => {
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-USER_PICTURES.addEventListener('click', (evt) => {
-  if (evt.target.classList[0] === 'picture__img') {
-    evt.preventDefault();
+const bigPictureClick = (userPictures) => {
+  USER_PICTURES.addEventListener('click', (evt) => {
+    if (evt.target.classList[0] === 'picture__img') {
+      evt.preventDefault();
 
-    openModal(evt.target);
-  }
-});
+      fillingBigPicture(evt.target, userPictures);
+      openModal();
+    }
+  });
+};
 
 CLOSE.addEventListener('click', () => {
   closeModal();
@@ -39,3 +40,5 @@ function onModalEscKeydown(evt) {
     closeModal();
   }
 }
+
+export { bigPictureClick };
