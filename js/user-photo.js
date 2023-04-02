@@ -7,9 +7,7 @@ FILE_CHOOSE.addEventListener('change', () => {
   const FILE = FILE_CHOOSE.files[0];
   const FILE_NAME = FILE.name.toLowerCase();
 
-  const MATCHES = FILE_TYPES.some((it) => {
-    return FILE_NAME.endsWith(it);
-  });
+  const MATCHES = FILE_TYPES.some((it) => FILE_NAME.endsWith(it));
 
   if (MATCHES) {
     PREVIEW_IMAGE.src = URL.createObjectURL(FILE);

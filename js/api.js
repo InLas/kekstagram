@@ -1,14 +1,17 @@
 import { AllertMessage } from './util.js';
 
+const FILTER_PICTURES = document.querySelector('.img-filters');
+
 const getData = (onSucces) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((userPictures) => {
       onSucces(userPictures);
+      FILTER_PICTURES.classList.remove('img-filters--inactive');
     })
-  // .catch(() => {
-  //   AllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
-  // });
+    .catch(() => {
+      AllertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
+    });
 };
 
 const sentData = (onSucces, onFail, body) => {

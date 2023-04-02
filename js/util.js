@@ -2,6 +2,8 @@ const ALLERT_SHOWTIME = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const getRandomArrayElement = (pictures) => pictures[Math.floor(Math.random() * pictures.length)];
+
 const AllertMessage = (message) => {
   const ALLERT_CONTAINER = document.createElement('div');
   ALLERT_CONTAINER.style.zIndex = 100;
@@ -23,4 +25,12 @@ const AllertMessage = (message) => {
   }, ALLERT_SHOWTIME);
 };
 
-export { isEscapeKey, AllertMessage };
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { isEscapeKey, AllertMessage, getRandomArrayElement, debounce };
