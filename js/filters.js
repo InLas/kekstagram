@@ -3,29 +3,23 @@ const FILTER_BUTTONS = document.querySelectorAll('.img-filters__button');
 
 const filterUserPictures = (def, random, discussed) => {
   FILTER_PICTURES.addEventListener('click', (evt) => {
-    if (evt.target.id === 'filter-default') {
+    if (evt.target.classList[0] === 'img-filters__button') {
       FILTER_BUTTONS.forEach((button) => {
         button.classList.remove('img-filters__button--active');
       });
+    }
 
+    if (evt.target.id === 'filter-default') {
       evt.target.classList.add('img-filters__button--active');
-      def();
+      return def();
     }
     if (evt.target.id === 'filter-random') {
-      FILTER_BUTTONS.forEach((button) => {
-        button.classList.remove('img-filters__button--active');
-      });
-
       evt.target.classList.add('img-filters__button--active');
-      random();
+      return random();
     }
     if (evt.target.id === 'filter-discussed') {
-      FILTER_BUTTONS.forEach((button) => {
-        button.classList.remove('img-filters__button--active');
-      });
-
       evt.target.classList.add('img-filters__button--active');
-      discussed();
+      return discussed();
     }
   });
 };
