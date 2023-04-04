@@ -31,13 +31,13 @@ const renderRandomPictures = (userPictures) => {
 
   const TOTAL_USER_PICTURES = [];
 
-  while (TOTAL_USER_PICTURES.length < MAX_PICTURES) {
+  while (USER_PICTURES.length > 0 && TOTAL_USER_PICTURES.length < MAX_PICTURES) {
     const CURRENT_VALUE = getRandomArrayElement(USER_PICTURES);
 
     if (!TOTAL_USER_PICTURES.includes(CURRENT_VALUE)) {
       TOTAL_USER_PICTURES.push(CURRENT_VALUE);
+      USER_PICTURES.splice(USER_PICTURES.indexOf(CURRENT_VALUE), 1);
     }
-
   }
 
   return renderUserPictures(TOTAL_USER_PICTURES);

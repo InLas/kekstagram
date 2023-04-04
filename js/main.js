@@ -1,11 +1,10 @@
 import { renderUserPictures, renderRandomPictures, renderDiscussedPictures } from './rendering-user-pictures.js';
 import { bigPictureClick } from './modal-big-picture.js';
-import './modal-form-upload.js';
 import { getData } from './api.js';
 import { closeModal } from './modal-form-upload.js';
 import { setFormSubmit } from './form-upload.js';
-import { filterUserPictures } from './filters.js';
 import './user-photo.js';
+import { filterUserPictures } from './filters.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;

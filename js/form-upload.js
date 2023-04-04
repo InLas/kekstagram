@@ -156,7 +156,7 @@ const getTagsErrorMessage = (value) => {
 };
 
 const tagsCheck = (value) => {
-  if (value !== undefined && value !== '') {
+  if (value !== '') {
     const TAGS = value.split(' ');
     const UNIQUE_TAGS = TAGS.map((tag) => tag.toLowerCase());
 
