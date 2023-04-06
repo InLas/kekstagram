@@ -1,12 +1,13 @@
 import { getRandomArrayElement } from './util.js';
 
-const renderUserPictures = (userPictures) => {
-  const PICTURES_CONTAINER = document.querySelector('.pictures');
-  const PICTURES_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
-  const PICTURES_FRAGMENT = document.createDocumentFragment();
+const PICTURE_CONTAINER = document.querySelector('.pictures');
+const PICTURE_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
+const PICTURE_FRAGMENT = document.createDocumentFragment();
+const MAX_PICTURES = 10;
 
-  if (PICTURES_CONTAINER.querySelector('.picture')) {
-    const PICTURES = PICTURES_CONTAINER.querySelectorAll('.picture');
+const renderUserPictures = (userPictures) => {
+  if (PICTURE_CONTAINER.querySelector('.picture')) {
+    const PICTURES = PICTURE_CONTAINER.querySelectorAll('.picture');
 
     PICTURES.forEach((picture) => {
       picture.remove();
@@ -14,20 +15,19 @@ const renderUserPictures = (userPictures) => {
   }
 
   userPictures.forEach(({ id, url, likes, comments }) => {
-    const POST_USER = PICTURES_TEMPLATE.cloneNode(true);
+    const POST_USER = PICTURE_TEMPLATE.cloneNode(true);
     POST_USER.querySelector('.picture__img').src = url;
     POST_USER.querySelector('.picture__img').setAttribute('id', id);
     POST_USER.querySelector('.picture__likes').textContent = likes;
     POST_USER.querySelector('.picture__comments').textContent = comments.length;
-    PICTURES_FRAGMENT.append(POST_USER);
+    PICTURE_FRAGMENT.append(POST_USER);
   });
 
-  PICTURES_CONTAINER.append(PICTURES_FRAGMENT);
+  PICTURE_CONTAINER.append(PICTURE_FRAGMENT);
 };
 
 const renderRandomPictures = (userPictures) => {
   const USER_PICTURES = userPictures.slice();
-  const MAX_PICTURES = 10;
 
   const TOTAL_USER_PICTURES = [];
 
@@ -43,11 +43,11 @@ const renderRandomPictures = (userPictures) => {
   return renderUserPictures(TOTAL_USER_PICTURES);
 };
 
-const sortToComments = (commentsA, commentsB) => {
-  const COMMENTS_A = commentsA.comments.length;
-  const COMMENTS_B = commentsB.comments.length;
+const sortToComments = (commentA, commentB) => {
+  const COMMENT_A = commentA.comments.length;
+  const COMMENT_B = commentB.comments.length;
 
-  return COMMENTS_B - COMMENTS_A;
+  return COMMENT_B - COMMENT_A;
 };
 
 const renderDiscussedPictures = (userPictures) => renderUserPictures(userPictures.slice().sort(sortToComments));

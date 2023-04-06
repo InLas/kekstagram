@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
-import { scaleControl, chooseFilter, resetForm } from './form-upload.js';
+import { resetForm } from './upload-form.js';
+import { scaleControl } from './upload-photo-scale.js';
+import { chooseFilter } from './upload-photo-filters.js';
 
 const MODAL_UPLOAD = document.querySelector('.img-upload__overlay');
 const OPEN_BUTTON = document.querySelector('.img-upload__control');

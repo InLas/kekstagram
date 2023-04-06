@@ -2,7 +2,7 @@ import { isEscapeKey } from './util.js';
 import { fillingBigPicture } from './big-picture.js';
 
 const BIG_PICTURE = document.querySelector('.big-picture');
-const USER_PICTURES = document.querySelector('.pictures');
+const PICTURE_CONTAINER = document.querySelector('.pictures');
 const CLOSE = document.querySelector('.big-picture__cancel');
 
 const openModal = () => {
@@ -20,7 +20,7 @@ const closeModal = () => {
 };
 
 const bigPictureClick = (userPictures) => {
-  USER_PICTURES.addEventListener('click', (evt) => {
+  PICTURE_CONTAINER.addEventListener('click', (evt) => {
     if (evt.target.classList[0] === 'picture__img') {
       evt.preventDefault();
 
