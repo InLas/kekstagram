@@ -1,8 +1,8 @@
-import { allertMessage, blockSubmitButton, unblockSubmitButton } from './util.js';
+import { alertMessage, blockSubmitButton, unblockSubmitButton } from './util.js';
 import { sentData } from './api.js';
 
 const SCALE_CONTROL_VALUE = document.querySelector('.scale__control--value');
-const PREVIEW_IMAGE = document.querySelector('.img-upload__preview').querySelector('img');
+const PREVIEW_IMAGE = document.querySelector('#preview-image');
 const FORM = document.querySelector('.img-upload__form');
 const EFFECT_SLIDER = document.querySelector('.effect-level__slider');
 const EFFECT_LEVEL = document.querySelector('.effect-level__value');
@@ -73,7 +73,7 @@ const setFormSubmit = (closeModal, onSuccess, onFail) => {
           unblockSubmitButton();
         },
         () => {
-          allertMessage('Не удалось отправить форму, попробуйте еще раз');
+          alertMessage('Не удалось отправить форму, попробуйте еще раз');
           unblockSubmitButton();
         },
         new FormData(evt.target)
@@ -93,7 +93,7 @@ const resetForm = () => {
   PREVIEW_IMAGE.classList.add('effects__preview--none');
   EFFECT_SLIDER.setAttribute('disabled', true);
   EFFECT_SLIDER.classList.add('hidden');
-  EFFECT_LEVEL.removeAttribute('value');
+  EFFECT_LEVEL.setAttribute('value', '');
   SCALE_CONTROL_VALUE.setAttribute('value', '100%');
   document.querySelector('#effect-none').checked = true;
 };

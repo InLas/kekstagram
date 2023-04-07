@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js'
+import { isEscapeKey } from './util.js';
 
 const ERROR_TEMPLATE = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 const SUCCESS_TEMPLATE = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
@@ -24,7 +24,7 @@ const createSuccessMessageSection = () => {
   SUCCESS_BUTTON.addEventListener('click', removeMessageSection);
   document.addEventListener('click', removeMessageSection);
   document.addEventListener('keydown', onModalEscKeydown);
-}
+};
 
 const createFailMessageSection = () => {
   document.body.append(ERROR_TEMPLATE);

@@ -1,29 +1,29 @@
-const ALLERT_SHOWTIME = 5000;
+const ALERT_SHOWTIME = 5000;
 const SUBMIT_BUTTON = document.querySelector('.img-upload__submit');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const getRandomArrayElement = (pictures) => pictures[Math.floor(Math.random() * pictures.length)];
 
-const allertMessage = (message) => {
-  const ALLERT_CONTAINER = document.createElement('div');
-  ALLERT_CONTAINER.style.zIndex = 100;
-  ALLERT_CONTAINER.style.position = 'absolute';
-  ALLERT_CONTAINER.style.top = 0;
-  ALLERT_CONTAINER.style.left = 0;
-  ALLERT_CONTAINER.style.right = 0;
-  ALLERT_CONTAINER.style.padding = '15px 15px';
-  ALLERT_CONTAINER.style.textAlign = 'center';
-  ALLERT_CONTAINER.style.fontWeight = 'bold';
-  ALLERT_CONTAINER.style.backgroundColor = 'red';
+const alertMessage = (message) => {
+  const ALERT_CONTAINER = document.createElement('div');
+  ALERT_CONTAINER.style.zIndex = 100;
+  ALERT_CONTAINER.style.position = 'absolute';
+  ALERT_CONTAINER.style.top = 0;
+  ALERT_CONTAINER.style.left = 0;
+  ALERT_CONTAINER.style.right = 0;
+  ALERT_CONTAINER.style.padding = '15px 15px';
+  ALERT_CONTAINER.style.textAlign = 'center';
+  ALERT_CONTAINER.style.fontWeight = 'bold';
+  ALERT_CONTAINER.style.backgroundColor = 'red';
 
-  ALLERT_CONTAINER.textContent = message;
+  ALERT_CONTAINER.textContent = message;
 
-  document.body.append(ALLERT_CONTAINER);
+  document.body.append(ALERT_CONTAINER);
 
   setTimeout(() => {
-    ALLERT_CONTAINER.remove();
-  }, ALLERT_SHOWTIME);
+    ALERT_CONTAINER.remove();
+  }, ALERT_SHOWTIME);
 };
 
 const debounce = (callback, timeoutDelay) => {
@@ -44,4 +44,4 @@ const unblockSubmitButton = () => {
   SUBMIT_BUTTON.textContent = 'Опубликовать.';
 };
 
-export { isEscapeKey, getRandomArrayElement, allertMessage, debounce, blockSubmitButton, unblockSubmitButton };
+export { isEscapeKey, getRandomArrayElement, alertMessage, debounce, blockSubmitButton, unblockSubmitButton };

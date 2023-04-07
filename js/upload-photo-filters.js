@@ -1,8 +1,8 @@
-const PREVIEW_IMAGE = document.querySelector('.img-upload__preview').querySelector('img');
+const PREVIEW_IMAGE = document.querySelector('#preview-image');
 const EFFECT_SLIDER = document.querySelector('.effect-level__slider');
 const EFFECT_LEVEL = document.querySelector('.effect-level__value');
 
-const Filters = [
+const FILTER = [
   {
     NAME: 'effect-chrome',
     MIN: 0,
@@ -56,12 +56,13 @@ const chooseFilter = (evt) => {
     if (evt.target.id === 'effect-none') {
       EFFECT_SLIDER.setAttribute('disabled', true);
       EFFECT_SLIDER.classList.add('hidden');
-      EFFECT_LEVEL.removeAttribute('value');
-      PREVIEW_IMAGE.style.filter = null;
+      EFFECT_LEVEL.setAttribute('value', '');
+      PREVIEW_IMAGE.removeAttribute('style');
+      PREVIEW_IMAGE.removeAttribute('class');
       return;
     }
 
-    Filters.find((effect => {
+    FILTER.find(((effect) => {
       if (effect.NAME === evt.target.id) {
         EFFECT_SLIDER.noUiSlider.updateOptions({
           range: {
@@ -70,12 +71,13 @@ const chooseFilter = (evt) => {
           },
           step: effect.STEP
         });
+
+        currentFilter = effect.CURRENT_FILTER;
+        PREVIEW_IMAGE.removeAttribute('class');
+        PREVIEW_IMAGE.classList.add(`effects__preview--${evt.target.value}`);
         EFFECT_SLIDER.removeAttribute('disabled');
         EFFECT_SLIDER.classList.remove('hidden');
         EFFECT_SLIDER.noUiSlider.set(effect.MAX);
-        currentFilter = effect.CURRENT_FILTER;
-        PREVIEW_IMAGE.classList = '';
-        PREVIEW_IMAGE.classList.add(`effects__preview--${effect.CURRENT_FILTER}`);
       }
     }));
   }

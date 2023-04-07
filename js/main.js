@@ -4,7 +4,7 @@ import { debounce } from './util.js';
 import { bigPictureClick } from './modal-big-picture.js';
 import { getData } from './api.js';
 import { closeModal } from './modal-form.js';
-import { createSuccessMessageSection, createFailMessageSection } from './message-section.js'
+import { createSuccessMessageSection, createFailMessageSection } from './message-section.js';
 import { setFormSubmit } from './upload-form.js';
 import './upload-photo.js';
 

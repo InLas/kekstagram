@@ -1,5 +1,5 @@
 const SCALE_CONTROL_VALUE = document.querySelector('.scale__control--value');
-const PREVIEW_IMAGE = document.querySelector('.img-upload__preview').querySelector('img');
+const PREVIEW_IMAGE = document.querySelector('#preview-image');
 
 const scaleControl = (evt) => {
   const MODIFIER = evt.target.classList[1];

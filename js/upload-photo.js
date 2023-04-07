@@ -1,5 +1,5 @@
 const FILE_CHOOSE = document.querySelector('#upload-file');
-const PREVIEW_IMAGE = document.querySelector('.img-upload__preview').querySelector('img');
+const PREVIEW_IMAGE = document.querySelector('#preview-image');
 
 const FILE_TYPES = ['gif', 'jpeg', 'jpg', 'png'];
 

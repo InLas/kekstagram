@@ -1,4 +1,4 @@
-import { allertMessage } from './util.js';
+import { alertMessage } from './util.js';
 
 const FILTER_PICTURES = document.querySelector('.img-filters');
 
@@ -10,7 +10,7 @@ const getData = (onSucces) => {
       FILTER_PICTURES.classList.remove('img-filters--inactive');
     })
     .catch(() => {
-      allertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
+      alertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');
     });
 };
 
