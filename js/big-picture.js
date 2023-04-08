@@ -1,8 +1,9 @@
-const LOAD_MORE_BUTTON = document.querySelector('.comments-loader');
-const COMMENT = document.querySelector('.social__comments');
-const COMMENT_COUNTER = document.querySelector('.social__comment-count');
-const COMMENT_TEMPLATE = document.querySelector('.social__comment').cloneNode(true);
-const COMMENTS_FRAGMENT = document.createDocumentFragment();
+const commentContainer = document.querySelector('.social__comments');
+const commentTemplate = document.querySelector('.social__comment').cloneNode(true);
+const commentFragment = document.createDocumentFragment();
+const commentCount = document.querySelector('.social__comment-count');
+const loadMoreButton = document.querySelector('.comments-loader');
+
 const CURRENT_COMMENTS = [];
 let commentsLength;
 let commentsShow;
@@ -10,54 +11,54 @@ let commentsShow;
 const fillingUserComments = () => {
   for (let i = 0; i < 5; i++) {
     if (CURRENT_COMMENTS.length > 0) {
-      const USER_COMMENT = COMMENT_TEMPLATE.cloneNode(true);
+      const userComment = commentTemplate.cloneNode(true);
 
-      USER_COMMENT.querySelector('.social__picture').src = CURRENT_COMMENTS[0].avatar;
-      USER_COMMENT.querySelector('.social__picture').alt = CURRENT_COMMENTS[0].name;
-      USER_COMMENT.querySelector('.social__text').textContent = CURRENT_COMMENTS[0].message;
+      userComment.querySelector('.social__picture').src = CURRENT_COMMENTS[0].avatar;
+      userComment.querySelector('.social__picture').alt = CURRENT_COMMENTS[0].name;
+      userComment.querySelector('.social__text').textContent = CURRENT_COMMENTS[0].message;
 
       commentsShow++;
 
-      COMMENT_COUNTER.textContent = `${commentsShow} из ${commentsLength} комментариев`;
+      commentCount.textContent = `${commentsShow} из ${commentsLength} комментариев`;
 
-      COMMENTS_FRAGMENT.append(USER_COMMENT);
-      COMMENT.append(COMMENTS_FRAGMENT);
+      commentFragment.append(userComment);
+      commentContainer.append(commentFragment);
       CURRENT_COMMENTS.shift();
     }
 
     if (CURRENT_COMMENTS.length === 0) {
-      LOAD_MORE_BUTTON.removeEventListener('click', fillingUserComments);
-      LOAD_MORE_BUTTON.classList.add('hidden');
+      loadMoreButton.removeEventListener('click', fillingUserComments);
+      loadMoreButton.classList.add('hidden');
       return;
     }
   }
 };
 
 const fillingBigPicture = (currentPicture, userPictures) => {
-  const PICTURE = document.querySelector('.big-picture__img').querySelector('img');
-  const LIKE_COUNT = document.querySelector('.likes-count');
-  const CAPTION = document.querySelector('.social__caption');
+  const bigPicture = document.querySelector('#big-picture__img');
+  const likeCount = document.querySelector('.likes-count');
+  const caption = document.querySelector('.social__caption');
 
   userPictures.forEach((userPicture) => {
     if (userPicture.id === +currentPicture.id) {
-      PICTURE.src = userPicture.url;
-      LIKE_COUNT.textContent = userPicture.likes;
-      CAPTION.textContent = userPicture.description;
+      bigPicture.src = userPicture.url;
+      likeCount.textContent = userPicture.likes;
+      caption.textContent = userPicture.description;
 
       if (userPicture.comments.length > 0) {
         Object.assign(CURRENT_COMMENTS, userPicture.comments);
-        COMMENT.innerHTML = '';
-        LOAD_MORE_BUTTON.addEventListener('click', fillingUserComments);
-        LOAD_MORE_BUTTON.classList.remove('hidden');
+        commentContainer.innerHTML = '';
+        loadMoreButton.addEventListener('click', fillingUserComments);
+        loadMoreButton.classList.remove('hidden');
         commentsLength = userPicture.comments.length;
         commentsShow = 0;
 
         return fillingUserComments(CURRENT_COMMENTS);
       }
 
-      COMMENT_COUNTER.textContent = 'Здесь пока нет комментариев, будьте первым!';
-      COMMENT.innerHTML = '';
-      LOAD_MORE_BUTTON.classList.add('hidden');
+      commentCount.textContent = 'Здесь пока нет комментариев, будьте первым!';
+      commentContainer.innerHTML = '';
+      loadMoreButton.classList.add('hidden');
     }
   });
 };

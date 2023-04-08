@@ -1,26 +1,26 @@
 import { isEscapeKey } from './util.js';
 import { fillingBigPicture } from './big-picture.js';
 
-const BIG_PICTURE = document.querySelector('.big-picture');
-const PICTURE_CONTAINER = document.querySelector('.pictures');
-const CLOSE = document.querySelector('.big-picture__cancel');
+const bigPictureSection = document.querySelector('.big-picture');
+const pictureContainer = document.querySelector('.pictures');
+const closeModalButton = document.querySelector('.big-picture__cancel');
 
 const openModal = () => {
-  BIG_PICTURE.classList.remove('hidden');
+  bigPictureSection.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onModalEscKeydown);
 };
 
 const closeModal = () => {
-  BIG_PICTURE.classList.add('hidden');
+  bigPictureSection.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
 const bigPictureClick = (userPictures) => {
-  PICTURE_CONTAINER.addEventListener('click', (evt) => {
+  pictureContainer.addEventListener('click', (evt) => {
     if (evt.target.classList[0] === 'picture__img') {
       evt.preventDefault();
 
@@ -30,7 +30,7 @@ const bigPictureClick = (userPictures) => {
   });
 };
 
-CLOSE.addEventListener('click', () => {
+closeModalButton.addEventListener('click', () => {
   closeModal();
 });
 

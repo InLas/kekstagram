@@ -1,5 +1,6 @@
+const submitButton = document.querySelector('.img-upload__submit');
+
 const ALERT_SHOWTIME = 5000;
-const SUBMIT_BUTTON = document.querySelector('.img-upload__submit');
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -35,13 +36,13 @@ const debounce = (callback, timeoutDelay) => {
 };
 
 const blockSubmitButton = () => {
-  SUBMIT_BUTTON.disabled = true;
-  SUBMIT_BUTTON.textContent = 'Загрузка...';
+  submitButton.disabled = true;
+  submitButton.textContent = 'Загрузка...';
 };
 
 const unblockSubmitButton = () => {
-  SUBMIT_BUTTON.disabled = false;
-  SUBMIT_BUTTON.textContent = 'Опубликовать.';
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать.';
 };
 
 export { isEscapeKey, getRandomArrayElement, alertMessage, debounce, blockSubmitButton, unblockSubmitButton };

@@ -1,6 +1,6 @@
-const PREVIEW_IMAGE = document.querySelector('#preview-image');
-const EFFECT_SLIDER = document.querySelector('.effect-level__slider');
-const EFFECT_LEVEL = document.querySelector('.effect-level__value');
+const previewImage = document.querySelector('#preview-image');
+const effectSlider = document.querySelector('.effect-level__slider');
+const effectLevel = document.querySelector('.effect-level__value');
 
 const FILTER = [
   {
@@ -41,7 +41,7 @@ const FILTER = [
 ];
 let currentFilter = '';
 
-noUiSlider.create(EFFECT_SLIDER, {
+noUiSlider.create(effectSlider, {
   range: {
     min: 0,
     max: 100,
@@ -54,17 +54,17 @@ noUiSlider.create(EFFECT_SLIDER, {
 const chooseFilter = (evt) => {
   if (evt.target.classList[0] === 'effects__radio') {
     if (evt.target.id === 'effect-none') {
-      EFFECT_SLIDER.setAttribute('disabled', true);
-      EFFECT_SLIDER.classList.add('hidden');
-      EFFECT_LEVEL.setAttribute('value', '');
-      PREVIEW_IMAGE.removeAttribute('style');
-      PREVIEW_IMAGE.removeAttribute('class');
+      effectSlider.setAttribute('disabled', true);
+      effectSlider.classList.add('hidden');
+      effectLevel.value = '';
+      previewImage.removeAttribute('style');
+      previewImage.removeAttribute('class');
       return;
     }
 
     FILTER.find(((effect) => {
       if (effect.NAME === evt.target.id) {
-        EFFECT_SLIDER.noUiSlider.updateOptions({
+        effectSlider.noUiSlider.updateOptions({
           range: {
             min: effect.MIN,
             max: effect.MAX
@@ -73,32 +73,32 @@ const chooseFilter = (evt) => {
         });
 
         currentFilter = effect.CURRENT_FILTER;
-        PREVIEW_IMAGE.removeAttribute('class');
-        PREVIEW_IMAGE.classList.add(`effects__preview--${evt.target.value}`);
-        EFFECT_SLIDER.removeAttribute('disabled');
-        EFFECT_SLIDER.classList.remove('hidden');
-        EFFECT_SLIDER.noUiSlider.set(effect.MAX);
+        previewImage.removeAttribute('class');
+        previewImage.classList.add(`effects__preview--${evt.target.value}`);
+        effectSlider.removeAttribute('disabled');
+        effectSlider.classList.remove('hidden');
+        effectSlider.noUiSlider.set(effect.MAX);
       }
     }));
   }
 };
 
-EFFECT_SLIDER.noUiSlider.on('update', () => {
-  const FILTER_VALUE = EFFECT_SLIDER.noUiSlider.get();
+effectSlider.noUiSlider.on('update', () => {
+  const FILTER_VALUE = effectSlider.noUiSlider.get();
 
-  EFFECT_LEVEL.setAttribute('value', FILTER_VALUE);
+  effectLevel.setAttribute('value', FILTER_VALUE);
 
   if (currentFilter === 'invert') {
-    PREVIEW_IMAGE.style.filter = ` ${currentFilter}(${FILTER_VALUE}%)`;
+    previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE}%)`;
     return;
   }
 
   if (currentFilter === 'blur') {
-    PREVIEW_IMAGE.style.filter = ` ${currentFilter}(${FILTER_VALUE}px)`;
+    previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE}px)`;
     return;
   }
 
-  PREVIEW_IMAGE.style.filter = ` ${currentFilter}(${FILTER_VALUE})`;
+  previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE})`;
 });
 
 export { chooseFilter };

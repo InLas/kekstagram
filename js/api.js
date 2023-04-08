@@ -1,13 +1,13 @@
 import { alertMessage } from './util.js';
 
-const FILTER_PICTURES = document.querySelector('.img-filters');
+const filterPictures = document.querySelector('.img-filters');
 
 const getData = (onSucces) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((userPictures) => {
       onSucces(userPictures);
-      FILTER_PICTURES.classList.remove('img-filters--inactive');
+      filterPictures.classList.remove('img-filters--inactive');
     })
     .catch(() => {
       alertMessage('Не удалось загрузить фотографии, попробуйте обновить страницу');

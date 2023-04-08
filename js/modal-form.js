@@ -1,32 +1,32 @@
 import { isEscapeKey } from './util.js';
 import { resetForm } from './upload-form.js';
-import { scaleControl } from './upload-photo-scale.js';
 import { chooseFilter } from './upload-photo-filters.js';
+import { scaleControl } from './upload-photo-scale.js';
 
-const MODAL_UPLOAD = document.querySelector('.img-upload__overlay');
-const OPEN_BUTTON = document.querySelector('.img-upload__control');
-const CLOSE_BUTTON = document.querySelector('.img-upload__cancel');
-const SCALE = document.querySelector('.scale');
-const EFFECT_FILTERS = document.querySelector('.effects__list');
+const openFormButton = document.querySelector('.img-upload__control');
+const formModal = document.querySelector('.img-upload__overlay');
+const closeFormButton = formModal.querySelector('.img-upload__cancel');
+const effectFilters = formModal.querySelector('.effects__list');
+const scale = document.querySelector('.scale');
 
 const openModal = () => {
-  MODAL_UPLOAD.classList.remove('hidden');
+  formModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
   resetForm();
 
   document.addEventListener('keydown', onModalEscKeydown);
-  SCALE.addEventListener('click', scaleControl);
-  EFFECT_FILTERS.addEventListener('click', chooseFilter);
+  effectFilters.addEventListener('click', chooseFilter);
+  scale.addEventListener('click', scaleControl);
 };
 
 const closeModal = () => {
-  MODAL_UPLOAD.classList.add('hidden');
+  formModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetForm();
 
   document.removeEventListener('keydown', onModalEscKeydown);
-  SCALE.removeEventListener('click', scaleControl);
-  EFFECT_FILTERS.removeEventListener('click', chooseFilter);
+  effectFilters.removeEventListener('click', chooseFilter);
+  scale.removeEventListener('click', scaleControl);
 };
 
 function onModalEscKeydown(evt) {
@@ -42,11 +42,11 @@ function onModalEscKeydown(evt) {
   }
 }
 
-OPEN_BUTTON.addEventListener('click', () => {
+openFormButton.addEventListener('click', () => {
   openModal();
 });
 
-CLOSE_BUTTON.addEventListener('click', () => {
+closeFormButton.addEventListener('click', () => {
   closeModal();
 });
 

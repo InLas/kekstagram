@@ -1,11 +1,11 @@
 import { alertMessage, blockSubmitButton, unblockSubmitButton } from './util.js';
 import { sentData } from './api.js';
 
-const SCALE_CONTROL_VALUE = document.querySelector('.scale__control--value');
-const PREVIEW_IMAGE = document.querySelector('#preview-image');
-const FORM = document.querySelector('.img-upload__form');
-const EFFECT_SLIDER = document.querySelector('.effect-level__slider');
-const EFFECT_LEVEL = document.querySelector('.effect-level__value');
+const form = document.querySelector('.img-upload__form');
+const previewImage = form.querySelector('#preview-image');
+const scaleValue = form.querySelector('.scale__control--value');
+const effectSlider = form.querySelector('.effect-level__slider');
+const effectLevel = form.querySelector('.effect-level__value');
 
 const getTagsErrorMessage = (value) => {
   const TAGS = value.split(' ');
@@ -51,16 +51,16 @@ const tagsCheck = (value) => {
   return true;
 };
 
-const PRISTINE = new Pristine(FORM, {
+const PRISTINE = new Pristine(form, {
   classTo: 'text',
   errorTextParent: 'text',
   errorTextClass: 'text__error'
 });
 
-PRISTINE.addValidator(FORM.querySelector('.text__hashtags'), tagsCheck, getTagsErrorMessage);
+PRISTINE.addValidator(form.querySelector('.text__hashtags'), tagsCheck, getTagsErrorMessage);
 
 const setFormSubmit = (closeModal, onSuccess, onFail) => {
-  FORM.addEventListener('submit', (evt) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const IS_VALID = PRISTINE.validate();
@@ -86,15 +86,15 @@ const setFormSubmit = (closeModal, onSuccess, onFail) => {
 };
 
 const resetForm = () => {
-  FORM.reset();
-  PREVIEW_IMAGE.src = 'img/upload-default-image.jpg';
-  PREVIEW_IMAGE.removeAttribute('class');
-  PREVIEW_IMAGE.removeAttribute('style');
-  PREVIEW_IMAGE.classList.add('effects__preview--none');
-  EFFECT_SLIDER.setAttribute('disabled', true);
-  EFFECT_SLIDER.classList.add('hidden');
-  EFFECT_LEVEL.setAttribute('value', '');
-  SCALE_CONTROL_VALUE.setAttribute('value', '100%');
+  form.reset();
+  previewImage.src = 'img/upload-default-image.jpg';
+  previewImage.removeAttribute('class');
+  previewImage.removeAttribute('style');
+  previewImage.classList.add('effects__preview--none');
+  effectSlider.setAttribute('disabled', true);
+  effectSlider.classList.add('hidden');
+  effectLevel.value = '';
+  scaleValue.value = '100%';
   document.querySelector('#effect-none').checked = true;
 };
 
