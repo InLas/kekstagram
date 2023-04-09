@@ -83,9 +83,7 @@ const chooseFilter = (evt) => {
 
               return value.toFixed(1) + effect.MODIFIER;
             },
-            from: (value) => {
-              return parseFloat(value);
-            }
+            from: (value) => parseFloat(value)
           }
         });
 
