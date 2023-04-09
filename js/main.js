@@ -4,8 +4,9 @@ import { debounce } from './util.js';
 import { bigPictureClick } from './modal-big-picture.js';
 import { getData } from './api.js';
 import { closeModal } from './modal-form.js';
+import './upload-photo-scale.js'
 import { createSuccessMessageSection, createFailMessageSection } from './message-section.js';
-import { setFormSubmit } from './upload-form.js';
+import { setFormSubmit } from './upload-form-validation.js';
 import './upload-photo.js';
 
 const RERENDER_DELAY = 500;

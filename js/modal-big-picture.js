@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { fillingBigPicture } from './big-picture.js';
+import { fillingBigPicture } from './rendering-big-picture.js';
 
 const bigPictureSection = document.querySelector('.big-picture');
 const pictureContainer = document.querySelector('.pictures');

@@ -1,13 +1,11 @@
 import { isEscapeKey } from './util.js';
-import { resetForm } from './upload-form.js';
+import { resetForm } from './reset-form.js';
 import { chooseFilter } from './upload-photo-filters.js';
-import { scaleControl } from './upload-photo-scale.js';
 
 const openFormButton = document.querySelector('.img-upload__control');
 const formModal = document.querySelector('.img-upload__overlay');
 const closeFormButton = formModal.querySelector('.img-upload__cancel');
 const effectFilters = formModal.querySelector('.effects__list');
-const scale = document.querySelector('.scale');
 
 const openModal = () => {
   formModal.classList.remove('hidden');
@@ -16,7 +14,6 @@ const openModal = () => {
 
   document.addEventListener('keydown', onModalEscKeydown);
   effectFilters.addEventListener('click', chooseFilter);
-  scale.addEventListener('click', scaleControl);
 };
 
 const closeModal = () => {
@@ -26,7 +23,6 @@ const closeModal = () => {
 
   document.removeEventListener('keydown', onModalEscKeydown);
   effectFilters.removeEventListener('click', chooseFilter);
-  scale.removeEventListener('click', scaleControl);
 };
 
 function onModalEscKeydown(evt) {

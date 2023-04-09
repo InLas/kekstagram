@@ -8,6 +8,7 @@ const FILTER = [
     MIN: 0,
     MAX: 1,
     STEP: 0.1,
+    MODIFIER: '',
     CURRENT_FILTER: 'grayscale'
   },
   {
@@ -15,6 +16,7 @@ const FILTER = [
     MIN: 0,
     MAX: 1,
     STEP: 0.1,
+    MODIFIER: '',
     CURRENT_FILTER: 'sepia'
   },
   {
@@ -22,6 +24,7 @@ const FILTER = [
     MIN: 0,
     MAX: 100,
     STEP: 1,
+    MODIFIER: '%',
     CURRENT_FILTER: 'invert'
   },
   {
@@ -29,6 +32,7 @@ const FILTER = [
     MIN: 0,
     MAX: 3,
     STEP: 0.1,
+    MODIFIER: 'px',
     CURRENT_FILTER: 'blur'
   },
   {
@@ -36,6 +40,7 @@ const FILTER = [
     MIN: 1,
     MAX: 3,
     STEP: 0.1,
+    MODIFIER: '',
     CURRENT_FILTER: 'brightness'
   },
 ];
@@ -69,7 +74,19 @@ const chooseFilter = (evt) => {
             min: effect.MIN,
             max: effect.MAX
           },
-          step: effect.STEP
+          step: effect.STEP,
+          format: {
+            to: (value) => {
+              if (Number.isInteger(value)) {
+                return value.toFixed(0) + effect.MODIFIER;
+              }
+
+              return value.toFixed(1) + effect.MODIFIER;
+            },
+            from: (value) => {
+              return parseFloat(value);
+            }
+          }
         });
 
         currentFilter = effect.CURRENT_FILTER;
@@ -86,18 +103,7 @@ const chooseFilter = (evt) => {
 effectSlider.noUiSlider.on('update', () => {
   const FILTER_VALUE = effectSlider.noUiSlider.get();
 
-  effectLevel.setAttribute('value', FILTER_VALUE);
-
-  if (currentFilter === 'invert') {
-    previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE}%)`;
-    return;
-  }
-
-  if (currentFilter === 'blur') {
-    previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE}px)`;
-    return;
-  }
-
+  effectLevel.value = parseFloat(FILTER_VALUE);
   previewImage.style.filter = ` ${currentFilter}(${FILTER_VALUE})`;
 });
 
